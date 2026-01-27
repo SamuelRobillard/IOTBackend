@@ -1,0 +1,30 @@
+{
+    "server": {
+      "http": {
+        "enabled": true,
+        "port": 3000
+      },
+      "https": {
+        "enabled": false,
+        "port": 443,
+        "redirectAllHttpToHttps": false
+      }
+    },
+    "db": {
+      "uri": "mongodb://localhost:27017/mydatabase"
+    },
+    "security": {
+      "jwt": {
+        "secret": "your-jwt-secret",
+        "expiresIn": "1h"
+      },
+      "cors": {
+        "origins": ["http://localhost:3000"]
+      },
+      "rateLimit": {
+        "windowMs":  90000,
+        "max": 100
+      }
+    }
+  }
+  

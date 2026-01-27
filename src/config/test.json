@@ -1,0 +1,30 @@
+{
+    "server": {
+      "http": {
+        "enabled": true,
+        "port": 4000
+      },
+      "https": {
+        "enabled": false,
+        "port": 443,
+        "redirectAllHttpToHttps": false
+      }
+    },
+    "db": {
+      "uri":  "mongodb+srv://6222321:password11@cluster0.nvvmrgg.mongodb.net/dataTest?retryWrites=true&w=majority&appName=Cluster0"
+    },
+    "security": {
+      "jwt": {
+        "secret": "test-jwt-secret",
+        "expiresIn": "1h"
+      },
+      "cors": {
+        "origins": ["http://localhost:4000"]
+      },
+      "rateLimit": {
+        "windowMs": 90000,
+        "max": 100
+      }
+    }
+  }
+  

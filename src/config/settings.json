@@ -1,0 +1,17 @@
+{
+  "redirectHttpToHttps": true,
+  "httpsPort": 443,
+  "httpPort": 80,
+  "allowedOrigins": [
+    
+    "http://localhost:3000",
+    "http://localhost:8800",
+    "https://localhost:8000"
+  ],
+   "rateLimit": {
+    "/api/v2/login": { "windowMs": 60, "max": 3 },
+    "/api/v2/ratings": { "windowMs": 60, "max": 10 },
+    "/api/v3/login": { "windowMs": 60, "max": 3 }
+    
+  }
+}

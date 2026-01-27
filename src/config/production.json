@@ -1,0 +1,30 @@
+{
+    "server": {
+      "http": {
+        "enabled": false,
+        "port": 3000
+      },
+      "https": {
+        "enabled": true,
+        "port": 443,
+        "redirectAllHttpToHttps": true
+      }
+    },
+    "db": {
+      "uri": "mongodb+srv://6222321:password11@cluster0.nvvmrgg.mongodb.net/e-commerce?retryWrites=true&w=majority&appName=Cluster0"
+    },
+    "security": {
+      "jwt": {
+        "secret": "prod-jwt-secret",
+        "expiresIn": "1h"
+      },
+      "cors": {
+        "origins": ["https://collecteprojetfinal.onrender.com"]
+      },
+      "rateLimit": {
+        "windowMs": 90000,
+        "max": 1000
+      }
+    }
+  }
+  
