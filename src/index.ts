@@ -1,21 +1,15 @@
 import express, { Request, Response } from "express";
-import fs from "fs";
-import https from "https";
-import path from "path";
-import swaggerUi from "swagger-ui-express";
-import http from "http";
 import connectDB from "./data/DbMongo";
-import cors, { CorsOptions } from "cors";
+
 
 import config from "./config/config";
-import router from "./routes/TestRoute";
+
 
 
 import TestRoute from "./routes/TestRoute";
 
 
-const win = require("./winston/winstonLogger");
-const winError = require("./winston/winstonError");
+
 
 const app = express();
 const port = config.port;
