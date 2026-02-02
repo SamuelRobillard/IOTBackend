@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import config from "../config/config";
 export async function geminiPic(base64ImageData) {
     const ai = new GoogleGenAI({
-        apiKey : config.geminiApiKey
+        apiKey : "AIzaSyDqsHSXiTPKjdKIBeoE9fCCw-0D3vRS0Qk"
     });
   
    
