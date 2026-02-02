@@ -9,10 +9,7 @@ import config from "./config/config";
 import TestRoute from "./routes/TestRoute";
 import AdminRoute from "./routes/AdminRoute"
 
-import createCombinedDocuments from "./services/CombinedDataDechetService";
-import { combineAllDataForOneDechetByHisId } from "./services/CombinedDataDechetService";
-import { categorieAnalyserDechet } from "./model/Dechet";
-import { categorieJeter } from "./model/Verification";
+
 
 
 const app = express();
@@ -41,8 +38,7 @@ const run = async () => {
    
 
 
-    const testId = '69811c3c56f92ad6ecaf8fa4';
-     await combineAllDataForOneDechetByHisId(testId);
+  
    
     console.log("MongoDB connecté avec succès!");
   } catch (error) {
