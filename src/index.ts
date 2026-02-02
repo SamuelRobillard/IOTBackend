@@ -9,7 +9,8 @@ import config from "./config/config";
 import TestRoute from "./routes/TestRoute";
 import AdminRoute from "./routes/AdminRoute"
 import ImageRoute from "./routes/ImageRoute"
-import { GeminiAPi } from "./services/GeminiAPI";
+
+
 
 
 const app = express();
