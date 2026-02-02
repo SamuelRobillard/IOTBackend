@@ -3,13 +3,13 @@ import Statistique,{categorieAnalyser, IStatistique} from "../model/Statistique"
 
 export class StatistiqueService {
     public static async createStatistique(
-        categorieAnalyser:categorieAnalyser,
+        categorieAnalyserStat:categorieAnalyser,
         TotalNumber:Number,
         ratio:Number,
      
     ): Promise<any> {
     
-      const existingStatistique = await Statistique.findOne({ categorieAnalyser });
+      const existingStatistique = await Statistique.findOne({ categorieAnalyser: categorieAnalyserStat });
       if (existingStatistique) {
         return "Statistic already exists"
       }
@@ -18,7 +18,7 @@ export class StatistiqueService {
 
   
       const statistique = new Statistique({
-          categorieAnalyser,
+          categorieAnalyser: categorieAnalyserStat,
           TotalNumber,
           ratio
         
