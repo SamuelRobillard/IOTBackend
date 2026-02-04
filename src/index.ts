@@ -40,9 +40,7 @@ const run = async () => {
     await connectDB();
    
 
-
-  
-   
+    console.log(config.geminiApiKey)
     console.log("MongoDB connecté avec succès!");
   } catch (error) {
     console.error("Erreur:", error);

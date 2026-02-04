@@ -11,12 +11,18 @@ export class AdminService {
    
     username : string,
     password : string,
+    email : string
     
   ): Promise<any> {
     // Vérifier si l'email existe déjà
-    const existingUser = await Admin.findOne({ username });
+    const existingUser = await Admin.findOne({
+      $or: [
+        { username },
+        { email }
+      ]
+    });
     if (existingUser) {
-      return "admin already exists"
+      return "username or email already exists"
     }
 
     // Hacher le mot de passe
@@ -24,7 +30,8 @@ export class AdminService {
 
     const admin = new Admin({
         username,
-        password : hashedPassword, // Utilisation du mot de passe haché
+        password : hashedPassword, 
+        email : email
       
     });
 

@@ -5,17 +5,18 @@ import { AdminService } from "../services/AdminService";
 import { IAdmin } from "../model/Admin";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { ad } from "@faker-js/faker/dist/airline-DF6RqYmq";
 
 
 export class AdminController {
   public async createAdmin(req: Request, res: Response): Promise<Response> {
-    const { username, password} = req.body;
+    const { username, password, email} = req.body;
     
     try {
       const admin = await AdminService.createAdmin(
         username,
         password,
-
+        email
       );
       return res.status(201).json(admin);
     } catch (error: unknown) {
@@ -38,6 +39,7 @@ export class AdminController {
           id: admin._id,
           username: admin.username,
           password: admin.password,
+          email : admin.email
         
         },
         JWT_SECRET,
