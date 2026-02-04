@@ -1,19 +1,20 @@
-import Dechet, { categorieAnalyserDechet } from "../model/Dechet";
+import Dechet, { categorieAnalyserDechet, IDechet } from "../model/Dechet";
 import { DateService } from "./DateService";
 import { VerificationService } from "./VerificationService";
 import { categorieJeter } from "../model/Verification";
 import { DechetService } from "./DechetService";
+import DateModel from "../model/DateModel";
 import DTODechet from "../model/DTODechet";
+
 const createCombinedDocuments = async (
     categorieAnalyser: categorieAnalyserDechet,
-      categorieJeter: categorieJeter,
+     categorieJeter: categorieJeter,
     date: string,
  
  
 ) => {
     try {
         console.log('création de la combinaison')
-        // Vérification des paramètres requis
         if (!categorieAnalyser ||   !date || !categorieJeter) {
             throw new Error('Certains paramètres nécessaires sont manquants.');
         }
@@ -68,7 +69,7 @@ const createCombinedDocuments = async (
 
 export const combineAllDataForOneDechetByHisId = async (idDechet: string): Promise<DTODechet | null> => {
     try {
-        console.log(`Recherche du déchet avec l'ID: ${idDechet}`);
+
 
 
         const dechet = await Dechet.findById(idDechet);
@@ -81,19 +82,29 @@ export const combineAllDataForOneDechetByHisId = async (idDechet: string): Promi
 
         const verification = await VerificationService.getVerificationByDechetId(idDechet);
 
-        console.log('trouvé vérification')
         if (!verification) {
             console.log('Vérification pour ce déchet non trouvée');
+            return null;
+        }
+
+        const dateRecord =  await DateModel.findOne({idDechet});
+
+
+
+        if(!dateRecord){
+            console.log('L\'enregistrement de la date pour ce déchet n\'a pas été trouvée.')
+
             return null;
         }
 
         const dtoDechet = new DTODechet(
             dechet._id as string,  
             dechet.categorieAnalyser,  
-            verification.categorieJeter  
+            verification.categorieJeter,
+            dateRecord.date,
+            
         );
 
-        console.log('dto crée',dtoDechet)
         return dtoDechet;
         
     } catch (error) {
@@ -101,6 +112,34 @@ export const combineAllDataForOneDechetByHisId = async (idDechet: string): Promi
         return null;
     }
 };
+
+
+export const combineAllDataForAllDechets = async (allIDDechets :string[]): Promise<any| null> => {
+    try {
+
+
+                
+        if(allIDDechets !== null){
+
+        
+            const result = await Promise.all(allIDDechets.map(async (e: string) => await combineAllDataForOneDechetByHisId(e)))
+            console.log(result);
+            if(result !== null){
+                return result;
+            }
+        }
+
+        return  null;
+        
+        
+
+        
+    } catch (error) {
+        console.error('Erreur lors de la recherche du déchet:', error);
+        return null;
+    }
+};
+
 
 
 export default createCombinedDocuments;
