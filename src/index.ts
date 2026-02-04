@@ -8,6 +8,7 @@ import config from "./config/config";
 import TestRoute from "./routes/TestRoute";
 import AdminRoute from "./routes/AdminRoute"
 import ImageRoute from "./routes/ImageRoute"
+import FrontendDataRoute from './routes/FrontendDataRoute'
 import { NotificationService } from "./services/NotificationService";
 
 
@@ -24,7 +25,7 @@ app.use(express.json());
 app.use("/api", TestRoute)
 app.use("/api", AdminRoute)
 app.use("/api", ImageRoute)
-
+app.use('/api',FrontendDataRoute)
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, TypeScript with Express! Connexion sécurisée.");
 });
@@ -38,6 +39,10 @@ const run = async () => {
   try {
     console.log("Connexion à MongoDB...");
     await connectDB();
+   
+    
+
+  
    
 
     console.log(config.geminiApiKey)

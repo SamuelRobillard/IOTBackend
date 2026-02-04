@@ -1,4 +1,4 @@
-import Date,{IDate} from "../model/Date";
+import Date,{IDate} from "../model/DateModel";
 export class DateService {
     public static async createDate(
         idDechet:string,
@@ -8,7 +8,7 @@ export class DateService {
     
       const existingDate = await Date.findOne({ idDechet:idDechet});
       if (existingDate) {
-        return "Date already exists"
+        return "Date already exists."
       }
   
       
