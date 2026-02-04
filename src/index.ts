@@ -13,6 +13,7 @@ import ImageRoute from "./routes/ImageRoute"
 
 
 
+
 const app = express();
 const port = config.port;
 
@@ -38,7 +39,8 @@ const run = async () => {
     console.log("Connexion à MongoDB...");
     await connectDB();
    
-    
+
+    console.log(config.geminiApiKey)
     console.log("MongoDB connecté avec succès!");
   } catch (error) {
     console.error("Erreur:", error);

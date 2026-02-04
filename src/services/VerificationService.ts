@@ -9,7 +9,7 @@ export class VerificationService {
     
       const existingVerification = await Verification.findOne({ idDechet:idDechet});
       if (existingVerification) {
-        return "Vérification already exists"
+        return "Vérification already exists."
       }
   
       
@@ -26,4 +26,13 @@ export class VerificationService {
       
       return verification;
     }
+    public static async getVerificationByDechetId(idDechet: string) {
+      try {
+          const verification = await Verification.findOne({ idDechet: idDechet });
+          return verification;
+      } catch (error) {
+          console.error('Erreur lors de la recherche de la vérification du déchet:', error);
+          return null;
+      }
+  }
 }

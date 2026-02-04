@@ -6,12 +6,8 @@ export class DechetService {
      
     ): Promise<any> {
     
-      const existingDechet = await Dechet.findOne({ categorieAnalyser });
-      if (existingDechet) {
-        return "Déchet already exists"
-      }
-  
-      
+     
+    
 
   
       const dechet = new Dechet({
