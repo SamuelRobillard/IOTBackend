@@ -5,11 +5,11 @@ import connectDB from "./data/DbMongo";
 import config from "./config/config";
 
 
-
 import TestRoute from "./routes/TestRoute";
 import AdminRoute from "./routes/AdminRoute"
 import ImageRoute from "./routes/ImageRoute"
 import FrontendDataRoute from './routes/FrontendDataRoute'
+import { NotificationService } from "./services/NotificationService";
 
 
 
@@ -44,6 +44,8 @@ const run = async () => {
 
   
    
+
+    console.log(config.geminiApiKey)
     console.log("MongoDB connecté avec succès!");
   } catch (error) {
     console.error("Erreur:", error);
