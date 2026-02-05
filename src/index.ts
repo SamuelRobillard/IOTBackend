@@ -44,8 +44,7 @@ const run = async () => {
     
 
   
-    await NotificationService.updateNotifSentByCategorie("poubelle", false);
-    console.log(await NotificationService.getIsSentByCategorie("poubelle"));
+
     console.log(config.geminiApiKey)
     console.log("MongoDB connecté avec succès!");
   } catch (error) {
