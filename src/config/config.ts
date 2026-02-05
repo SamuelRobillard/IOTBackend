@@ -44,7 +44,9 @@ const config = {
   rateLimitSettings: settings.rateLimit || {},
   geminiApiKey: process.env.GEMINI_API_KEY || "",
   googleVision: process.env.GOOGLE_VISION_KEY || "",
-  openAiKey: process.env.OPENAI_KEY || ""
+  openAiKey: process.env.OPENAI_KEY || "",
+  ourGmail : process.env.ourGmail || "",
+  ourGmailPassword : process.env.ourGmailPassword || "",
 };
 
 

@@ -1,32 +1,92 @@
-import nodemailer from "nodemailer";
+import { Types } from "mongoose";
 
-
-
+import Notifications from "../model/Notifications";
 export class NotificationService {
-    public static async createAdmin(){
-          const transporter =  nodemailer.createTransport({
-            service: "gmail",
-            host: "smtp.gmail.com",
-            auth: {
-                user: "", // your email
-                pass: "nbrp voia bjop laoo" // the app password you generated, paste without spaces
-            },
-            secure: true,
-            port: 465
-        });
-        (async () => {
-          await transporter.sendMail({
-          from: "", // your email
-          to: "", // the email address you want to send an email to
-          subject: "testCode", // The title or subject of the email
-          text: "bai bref c'est un test" // I like sending my email as html, you can send \
-                   // emails as html or as plain text
-        });
-        
-        console.log("Email sent");
-        })();
-        
+    public static async createNotification(
+        categoriePoubelle : string,
+        idAdmin : Types.ObjectId,
+        isFull : boolean,
+        notifIsSent : boolean): Promise<any> {
+    
+     
+    
+
+  
+      const notifs = new Notifications({
+          categoriePoubelle: categoriePoubelle,
+          idAdmin: idAdmin,
+          isFull: isFull,
+          notifIsSent: notifIsSent
+      });
+  
+      
+      await notifs.save();
+  
+      
+      return notifs;
     }
 
 
-}
+    public static async getAllNotif():Promise<any>{
+
+       try {
+        const notifs = await Notifications.find();
+        console.log(notifs);
+        if(notifs != null){
+            return notifs
+        }
+       } catch (error) {       
+        console.log('Erreur lors de la récupération des notifications.')
+       }
+
+    }
+
+
+    public static async updateByCategorie(
+        categoriePoubelle: string,
+        updates: {
+            isFull?: boolean;
+            notifIsSent?: boolean;
+        }): Promise<any> {
+        return await Notifications.findOneAndUpdate(
+            { categoriePoubelle },
+            { $set: updates },
+            { new: true }
+        );
+        }
+
+
+ public static async updateNotifSentByCategorie(
+        categoriePoubelle: string,
+        notifIsSent: boolean
+ ): Promise<any> {
+
+        const updates: any = {};
+        updates.notifIsSent = notifIsSent;
+
+        const notif = await NotificationService.updateByCategorie(
+        categoriePoubelle,
+        updates
+        );
+
+        return notif;
+        }
+
+
+
+        public static async getIsSentByCategorie(categoriePoubelle: string):Promise<any>{
+        
+               try {
+                const notifs = await Notifications.findOne({ categoriePoubelle })
+                
+                if(notifs != null){
+                    return notifs.notifIsSent;
+                }
+               } catch (error) {       
+                console.log('Erreur lors de la récupération des notifications.')
+               }
+        
+            }
+    }
+    
+   
