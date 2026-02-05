@@ -1,10 +1,11 @@
 import { categorieAnalyserDechet } from "./Dechet";
 import { categorieJeter } from "./Verification";
-
+import Date from "./DateModel";
 export default class DTODechet {
     idDechet: string;
     categorieAnalyser:categorieAnalyserDechet;
     categorieJeter:categorieJeter;
+    date:string;
     
     
    
@@ -15,13 +16,13 @@ export default class DTODechet {
     idDechet: string,
     categorieAnalyser:categorieAnalyserDechet,
     categorieJeter:categorieJeter,
-    
+    date:string
        
        
     ) {
         this.idDechet = idDechet;
         this.categorieAnalyser = categorieAnalyser;
         this.categorieJeter  = categorieJeter;
-       
+       this.date = date;
     }
 }
