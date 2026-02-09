@@ -12,8 +12,6 @@ const createCombinedDocuments = async (
     categorieAnalyser: categorieAnalyserDechet,
     categorieJeter: categorieJeter,
     
- 
- 
 ) => {
     try {
         console.log('création de la combinaison')
@@ -21,16 +19,13 @@ const createCombinedDocuments = async (
             throw new Error('Certains paramètres nécessaires sont manquants.');
         }
 
-
         const dechet =  await DechetService.createDechet(categorieAnalyser)
         
 
-        console.log(`Déchet créé avec succès, ID: ${dechet}`); 
 
         const idDechet = dechet._id as string 
 
         if(!idDechet){
-            console.log('erreur lors de la création du déchet');
             return null
         }
 
@@ -45,17 +40,11 @@ const createCombinedDocuments = async (
             second: '2-digit',
             hour12: false // Use 24-hour format
         });
-
-
-
-        
         const dateDechet = await DateService.createDate(idDechet, dateFormatted);
         if (!dateDechet) {
             throw new Error("Erreur lors de la création de la date");
         }
 
-   
-        
         const verification = await VerificationService.createDechet(idDechet, categorieJeter);
         if (!verification) {
             throw new Error('Erreur lors de la création de la vérification du déchet');
@@ -68,9 +57,7 @@ const createCombinedDocuments = async (
             idDechet: idDechet, 
             dateFormatted,
             categorieAnalyser,
-            
             categorieJeter,
-            
          
         };
 
@@ -80,12 +67,7 @@ const createCombinedDocuments = async (
        
     }
 
-
-    
-
-
 };     
-
 export const combineAllDataForOneDechetByHisId = async (idDechet: string): Promise<DTODechet | null> => {
     try {
 
