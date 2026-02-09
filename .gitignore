@@ -66,6 +66,10 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
+
+
+src/config/env
+
 .env
 .env.*
 !.env.example

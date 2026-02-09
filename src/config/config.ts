@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
+import { GoogleGenAI } from "@google/genai";
 
 // Détecter l'environnement
 const env = process.env.NODE_ENV || "development";
@@ -40,7 +41,12 @@ const config = {
   httpsPort: settings.httpsPort || 443,
   httpPort: settings.httpPort || 80,
   allowedOrigins: settings.allowedOrigins || [],
-  rateLimitSettings: settings.rateLimit || {}
+  rateLimitSettings: settings.rateLimit || {},
+  geminiApiKey: process.env.GEMINI_API_KEY || "",
+  googleVision: process.env.GOOGLE_VISION_KEY || "",
+  openAiKey: process.env.OPENAI_KEY || "",
+  ourGmail : process.env.ourGmail || "",
+  ourGmailPassword : process.env.ourGmailPassword || "",
 };
 
 
