@@ -1,33 +1,54 @@
 import Statistique,{categorieAnalyser, IStatistique} from "../model/Statistique";
+import { categorieJeter } from "../model/Verification";
 
 
 export class StatistiqueService {
-    public static async createStatistique(
-        categorieAnalyserStat:categorieAnalyser,
-        TotalNumber:Number,
-        ratio:Number,
-     
-    ): Promise<any> {
-    
-      const existingStatistique = await Statistique.findOne({ categorieAnalyser: categorieAnalyserStat });
-      if (existingStatistique) {
-        return "Statistic already exists"
-      }
-  
-      
+  public static async createStatistique(
+    categorieJeter : categorieJeter,
+    TotalNumber: number,
+    ratio: number
+): Promise<any> {
+   
+    const statistique = await Statistique.findOneAndUpdate(
+        { categorieAnalyser: categorieJeter }, 
+        { 
+            TotalNumber,
+            ratio
+        },
+        { 
+            new: true,  
+            upsert: true 
+        }
+    );
 
-  
-      const statistique = new Statistique({
-          categorieAnalyser: categorieAnalyserStat,
-          TotalNumber,
-          ratio
-        
-      });
-  
-      
-      await statistique.save();
-  
-      
-      return statistique;
-    }
+    return statistique;
+}
+public static async updateRatio(
+  categorieJeter: categorieJeter,
+  ratio: number
+): Promise<any> {
+ 
+  const statistique = await Statistique.findOneAndUpdate(
+      { categorieAnalyser: categorieJeter },   
+      { 
+          ratio 
+      },
+      { 
+          new: true,   
+          upsert: false 
+      }
+  );
+
+  return statistique;
+}
+
+
+public static async getAllStats(): Promise<any> {
+ 
+  const statistique = await Statistique.find()
+
+    return statistique
+
+}
+
 }

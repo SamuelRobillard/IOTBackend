@@ -5,7 +5,7 @@ export enum categorieJeter {
     Compost = 'compost',
     Recyclage = 'recyclage',
     Poubelle = 'poubelle',
-    NonJete = 'non jeté',
+    Autre = 'Autre',
 
 }
 

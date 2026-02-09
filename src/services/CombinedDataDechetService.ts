@@ -5,17 +5,19 @@ import { categorieJeter } from "../model/Verification";
 import { DechetService } from "./DechetService";
 import DateModel from "../model/DateModel";
 import DTODechet from "../model/DTODechet";
+import { StatistiqueService } from "./StatistiqueService";
+import { CreateDataService } from "./CreateDataService";
 
 const createCombinedDocuments = async (
     categorieAnalyser: categorieAnalyserDechet,
-     categorieJeter: categorieJeter,
-    date: string,
+    categorieJeter: categorieJeter,
+    
  
  
 ) => {
     try {
         console.log('création de la combinaison')
-        if (!categorieAnalyser ||   !date || !categorieJeter) {
+        if (!categorieAnalyser  || !categorieJeter) {
             throw new Error('Certains paramètres nécessaires sont manquants.');
         }
 
@@ -32,22 +34,39 @@ const createCombinedDocuments = async (
             return null
         }
 
-        const dateDechet = await DateService.createDate(idDechet, date);
+
+        const currentDate = new Date();
+        const dateFormatted = currentDate.toLocaleString('fr-FR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false // Use 24-hour format
+        });
+
+
+
+        
+        const dateDechet = await DateService.createDate(idDechet, dateFormatted);
         if (!dateDechet) {
             throw new Error("Erreur lors de la création de la date");
         }
 
    
-     
+        
         const verification = await VerificationService.createDechet(idDechet, categorieJeter);
         if (!verification) {
             throw new Error('Erreur lors de la création de la vérification du déchet');
         }
 
+        await CreateDataService.UpdateStatistiqueOneCategorie(categorieJeter)
+        await CreateDataService.updateAllRatio()
         return {
        
             idDechet: idDechet, 
-            date,
+            dateFormatted,
             categorieAnalyser,
             
             categorieJeter,
