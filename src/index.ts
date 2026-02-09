@@ -9,24 +9,17 @@ import TestRoute from "./routes/TestRoute";
 import AdminRoute from "./routes/AdminRoute"
 import imageRoute from "./routes/IOT"
 import FrontendDataRoute from './routes/FrontendDataRoute'
-import { NotificationService } from "./services/NotificationService";
 import NotificationRoute from "./routes/NotificationRoute";
-import { VerificationService } from "./services/VerificationService";
-import { StatistiqueService } from "./services/StatistiqueService";
-import { categorieAnalyser } from "./model/Statistique";
-import { categorieJeter } from "./model/Verification";
-import createCombinedDocuments from "./services/CombinedDataDechetService";
-import { categorieAnalyserDechet } from "./model/Dechet";
-import { CreateDataService } from "./services/CreateDataService";
 
 
 
-
+const cors = require('cors');
 const app = express();
 const port = config.port;
 
 app.use(express.json());
 
+app.use(cors());
 
 
 app.use("/api", TestRoute)
