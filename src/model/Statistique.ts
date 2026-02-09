@@ -1,4 +1,5 @@
 import { Schema, model, Document, Types, Date } from 'mongoose';
+import { categorieJeter } from './Verification';
 
 export enum categorieAnalyser {
 
@@ -12,7 +13,7 @@ export enum categorieAnalyser {
 
 
 export interface IStatistique extends Document {
-    categorieAnalyser: categorieAnalyser;
+    categorieAnalyser: categorieJeter;
     ratio: Number;
     TotalNumber: Number;
 }

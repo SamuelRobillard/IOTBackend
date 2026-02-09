@@ -7,6 +7,7 @@ const router =  Router();
 const frontendController = new FrontendDataController(); 
 
 router.get('/dechets',frontendController.getAllDechetsDTO);
+router.get('/stats',frontendController.getAllStats);
 
 
 export default router

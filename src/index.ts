@@ -7,10 +7,17 @@ import config from "./config/config";
 
 import TestRoute from "./routes/TestRoute";
 import AdminRoute from "./routes/AdminRoute"
-import ImageRoute from "./routes/ImageRoute"
+import imageRoute from "./routes/IOT"
 import FrontendDataRoute from './routes/FrontendDataRoute'
 import { NotificationService } from "./services/NotificationService";
 import NotificationRoute from "./routes/NotificationRoute";
+import { VerificationService } from "./services/VerificationService";
+import { StatistiqueService } from "./services/StatistiqueService";
+import { categorieAnalyser } from "./model/Statistique";
+import { categorieJeter } from "./model/Verification";
+import createCombinedDocuments from "./services/CombinedDataDechetService";
+import { categorieAnalyserDechet } from "./model/Dechet";
+import { CreateDataService } from "./services/CreateDataService";
 
 
 
@@ -24,7 +31,7 @@ app.use(express.json());
 
 app.use("/api", TestRoute)
 app.use("/api", AdminRoute)
-app.use("/api", ImageRoute)
+app.use("/api", imageRoute)
 app.use('/api',FrontendDataRoute)
 app.use('/api',NotificationRoute)
 app.get("/", (req: Request, res: Response) => {
@@ -43,7 +50,7 @@ const run = async () => {
    
     
 
-  
+
 
     console.log(config.geminiApiKey)
     console.log("MongoDB connecté avec succès!");
