@@ -27,7 +27,7 @@ export class NotificationsController {
    public async updateNotif(req: Request, res: Response): Promise<Response> {
     
     
-     try {
+    try {
     const { categoriePoubelle } = req.params;
     const { isFull } = req.body;
 
@@ -57,9 +57,12 @@ export class NotificationsController {
         message: "Notification non trouvée"
       });
     }
+    console.log("is full" + isFull)
     if(isFull){
         const isSent = await NotificationService.getIsSentByCategorie(categoriePoubelle);
+        console.log(isSent)
         if(!isSent){
+
             //mettre notif.iadmin quand for real
             console.log(notif.idAdmin)
             //envoie la notif
@@ -67,6 +70,9 @@ export class NotificationsController {
             //remet a false pour pas send plusieurs notif
             await NotificationService.updateNotifSentByCategorie(categoriePoubelle, true);
         }
+       else{
+        await NotificationService.updateNotifSentByCategorie(categoriePoubelle, false);
+       }
     }
     
     return res.status(200).json(notif);
