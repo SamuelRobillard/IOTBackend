@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import connectDB from "./data/DbMongo";
-
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
 
 import config from "./config/config";
 
@@ -21,7 +22,14 @@ app.use(express.json());
 
 app.use(cors());
 
+// Documentation Swagger
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  explorer: true,
+  customSiteTitle: "IOT Tricolo API Documentation",
+  customCss: '.swagger-ui .topbar { display: none }',
+}));
 
+// Routes de l'API
 app.use("/api", TestRoute)
 app.use("/api", AdminRoute)
 app.use("/api", imageRoute)
