@@ -45,13 +45,27 @@ export class AdminController {
         JWT_SECRET,
         { expiresIn: "1h" }
       );
-      res.json({ accessToken });
+      res.json({ 
+        accessToken,
+        id: admin._id,
+        username: admin.username,
+        email: admin.email
+      });
     } else {
       res.status(403).send("username ou mot de passe incorrect");
     }
     }
     catch(error){
       res.status(500).json({ message: "Erreur interne du serveur" });
+    }
+  }
+
+  public async logout(req: Request, res: Response): Promise<Response> {
+    try {
+      // JWT is stateless, so logout is handled client-side by removing the token
+      return res.status(200).json({ message: "Logged out successfully" });
+    } catch (error: unknown) {
+      return res.status(500).json({ message: "Erreur lors de la déconnexion" });
     }
   }
 

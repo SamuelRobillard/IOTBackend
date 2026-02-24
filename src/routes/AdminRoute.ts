@@ -13,7 +13,10 @@ router.post("/admin", authMiddleware, adminMiddleware, adminController.createAdm
 const loginLimiter = createRateLimiter('/api/v3/login');
 if (loginLimiter) router.post('/login', loginLimiter, adminController.login);
 
+router.post('/logout', adminController.logout);
+
 router.get('/admin', adminController.getAllAdmin);
+
 
 
 
