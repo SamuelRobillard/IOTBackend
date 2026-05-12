@@ -30,7 +30,9 @@ export class NotificationsController {
     try {
     const { categoriePoubelle } = req.params;
     const { isFull } = req.body;
-
+    if (typeof isFull !== 'boolean') {
+      return res.status(400).json({ message: "isFull doit être un booléen" });
+    }
     if (!categoriePoubelle) {
       return res.status(400).json({ message: "categoriePoubelle requise" });
     }
@@ -64,17 +66,20 @@ export class NotificationsController {
         if(!isSent){
 
             //mettre notif.iadmin quand for real
-            console.log(notif.idAdmin)
+            
             //envoie la notif
             await NotificationSenderService.sendNotification("samuelben.robillard@gmail.com", categoriePoubelle);
-            //remet a false pour pas send plusieurs notif
+            //remet a true pour pas send plusieurs notif
             await NotificationService.updateNotifSentByCategorie(categoriePoubelle, true);
         }
        else{
         await NotificationService.updateNotifSentByCategorie(categoriePoubelle, false);
        }
     }
-    
+    else{
+        //si la poubelle est marquée comme pas pleine, on remet notifIsSent à false pour pouvoir renvoyer une notif si elle est remplie à nouveau
+        await NotificationService.updateNotifSentByCategorie(categoriePoubelle, false);
+    }
     return res.status(200).json(notif);
   } catch (error) {
     console.error(error);

@@ -1,4 +1,4 @@
-import { v } from "@faker-js/faker/dist/airline-DF6RqYmq";
+
 import Verification,{IVerification,categorieJeter} from "../model/Verification";
 import { count } from "console";
 
