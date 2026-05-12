@@ -47,6 +47,8 @@ const config = {
   openAiKey: process.env.OPENAI_KEY || "",
   ourGmail : process.env.ourGmail || "",
   ourGmailPassword : process.env.ourGmailPassword || "",
+  SENDGRID_API_KEY : process.env.SENDGRID_API_KEY || "",
+  SENDGRID_SENDER_EMAIL : process.env.SENDGRID_SENDER_EMAIL || "",
 };
 
 

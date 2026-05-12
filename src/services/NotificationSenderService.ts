@@ -1,26 +1,20 @@
-import nodemailer from "nodemailer";
+import sgMail from '@sendgrid/mail';
 import config from "../config/config";
 
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: config.ourGmail,
-        pass: config.ourGmailPassword
-    }
-});
+sgMail.setApiKey(config.SENDGRID_API_KEY);
 
 export class NotificationSenderService {
-    public static async sendNotification(to: string, categorie: string): Promise<void> {
+    public static async sendNotification(to: string, categorie: string) {
         try {
-            await transporter.sendMail({
-                from: config.ourGmail,
+            await sgMail.send({
                 to,
-                subject: "testCode",
-                text: `${categorie} est remplis`
+                from: config.SENDGRID_SENDER_EMAIL,
+                subject: 'testCode',
+                text: `${categorie} est remplis`,
             });
             console.log("Email sent to " + to);
-        } catch (error) {
-            console.error("Failed to send email:", error);
+        } catch (err) {
+            console.error("Failed to send email:", err);
         }
     }
 }
