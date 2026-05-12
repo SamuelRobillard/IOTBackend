@@ -16,7 +16,7 @@ import config from "../config/config";
           data: base64ImageData,
         },
       },
-      { text: "the image come from a infrared cam. In one word is it compost, garbage, recyclabe or others" }
+      { text: "L'image vient d'une caméra infrarouge. EN un mot est ce recyclage, poubelle, compost ou autre" }
     ],
     });
 
@@ -26,7 +26,7 @@ import config from "../config/config";
    export async function callGeminiSafe(base64ImageData){
     const response = await callGemini(base64ImageData)
     if (typeof(response) === "string") {
-      const keywords = ["compost", "garbage", "recyclable", "others"];
+      const keywords = ["recyclage", "poubelle", "compost", "autre"];
   
       const match = keywords.find(word =>
         response.toLowerCase().includes(word)
