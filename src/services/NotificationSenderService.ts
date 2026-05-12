@@ -1,32 +1,26 @@
 import nodemailer from "nodemailer";
 import config from "../config/config";
 
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: config.ourGmail,
+        pass: config.ourGmailPassword
+    }
+});
 
 export class NotificationSenderService {
-    public static async sendNotification( to : string, categorie : string): Promise<void> {
-          const transporter =  nodemailer.createTransport({
-            service: "gmail",
-            host: "smtp.gmail.com",
-            auth: {
-                user: config.ourGmail, // your email
-                pass: config.ourGmailPassword // the app password you generated, paste without spaces
-            },
-            secure: true,
-            port: 465
-        });
-        (async () => {
-          await transporter.sendMail({
-          from: config.ourGmail, // your email
-          to: to, // the email address you want to send an email to
-          subject: "testCode", // The title or subject of the email
-          text:  categorie + " est remplis" // I like sending my email as html, you can send \
-                   // emails as html or as plain text
-        });
-        
-        console.log("Email sent to " + to);
-        })();
-        
+    public static async sendNotification(to: string, categorie: string): Promise<void> {
+        try {
+            await transporter.sendMail({
+                from: config.ourGmail,
+                to,
+                subject: "testCode",
+                text: `${categorie} est remplis`
+            });
+            console.log("Email sent to " + to);
+        } catch (error) {
+            console.error("Failed to send email:", error);
+        }
     }
-
-
 }
