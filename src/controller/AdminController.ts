@@ -5,7 +5,7 @@ import { AdminService } from "../services/AdminService";
 import { IAdmin } from "../model/Admin";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { ad } from "@faker-js/faker/dist/airline-DF6RqYmq";
+
 
 
 export class AdminController {

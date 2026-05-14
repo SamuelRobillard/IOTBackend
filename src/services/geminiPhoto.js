@@ -1,11 +1,11 @@
 import { GoogleGenAI } from "@google/genai";
 import config from "../config/config";
 
-
- async function callGemini(base64ImageData) {
-    const ai = new GoogleGenAI({
+ const ai = new GoogleGenAI({
         apiKey : config.geminiApiKey
     });
+ async function callGemini(base64ImageData) {
+   
   
     const result = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -16,8 +16,41 @@ import config from "../config/config";
           data: base64ImageData,
         },
       },
-      { text: "L'image vient d'une caméra infrarouge. EN un mot est ce recyclage, poubelle, compost ou autre" }
+{
+  text: `
+L’image provient d’une caméra infrarouge et peut être très rouge.
+Ignore complètement la dominante rouge.
+
+Tu analyses un déchet.
+
+Choisis UNE SEULE catégorie :
+
+- recyclage
+- poubelle
+- compost
+- autre
+
+Règles :
+- emballages, plastique, métal, papier, carton, canettes, bouteilles → recyclage
+- nourriture, restes alimentaires, matières organiques → compost
+- déchets ordinaires non recyclables → poubelle
+- piles, batteries, électronique, ampoules, produits dangereux ou objets impossibles à identifier → autre
+
+IMPORTANT :
+- Réponds avec UN SEUL mot
+- En minuscule
+- Sans phrase
+- Sans ponctuation
+- Sans explication
+- ne réponds jamais autre si tu peux identifier des trois autres catégories
+`
+}
     ],
+      config: {
+    temperature: 0,
+    topP: 0,
+    topK: 1,
+  }
     });
 
     return result.text
